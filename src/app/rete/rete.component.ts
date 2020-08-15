@@ -10,6 +10,7 @@ import VueRenderPlugin from 'rete-vue-render-plugin';
 import ContextMenuPlugin from 'rete-context-menu-plugin';
 import { NumComponent } from './components/number-component';
 import { AddComponent } from './components/add-component';
+import { AlertComponent } from './components/alert-component';
 
 @Component({
     selector: 'app-rete',
@@ -28,7 +29,7 @@ export class ReteComponent implements AfterViewInit {
 
     const container = this.el.nativeElement;
 
-    const components = [new NumComponent(), new AddComponent()];
+    const components = [new NumComponent(), new AddComponent(),new AlertComponent()];
 
     const editor = new NodeEditor('demo@0.2.0', container);
     editor.use(ConnectionPlugin);
@@ -42,20 +43,23 @@ export class ReteComponent implements AfterViewInit {
       engine.register(c);
     });
 
-    const n1 = await components[0].createNode({ num: "" });
+    const n1 = await components[0].createNode({ num: 0 });
     // const n2 = await components[0].createNode({ num: 0 });
     const add = await components[1].createNode();
 
+    const alert = await components[2].createNode();
+
+
     n1.position = [80, 200];
-    // n2.position = [80, 400];
+    alert.position = [900, 400];
     add.position = [500, 240];
 
     editor.addNode(n1);
-    // editor.addNode(n2);
+    editor.addNode(alert);
     editor.addNode(add);
 
     editor.connect(n1.outputs.get('num'), add.inputs.get('num1'));
-    // editor.connect(n2.outputs.get('num'), add.inputs.get('num2'));
+    editor.connect(add.outputs.get('num'), alert.inputs.get('num'));
 
 
     editor.on('process nodecreated noderemoved connectioncreated connectionremoved', (async () => {

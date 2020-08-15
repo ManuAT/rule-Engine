@@ -1,6 +1,6 @@
 import { Component, Input, Output } from 'rete';
 import { numSocket } from '../sockets';
-import { NumControl } from '../controls/number-control';
+import { NumControl,AddControl } from '../controls/number-control';
 
 export class AddComponent extends Component {
   constructor() {
@@ -12,13 +12,13 @@ export class AddComponent extends Component {
     // const inp2 = new Input('num2', 'Device', numSocket);
     const out = new Output('num', 'Then', numSocket);
 
-    inp1.addControl(new NumControl(this.editor, 'num1'));
+    // inp1.addControl(new NumControl(this.editor, 'num1'));
     // inp2.addControl(new NumControl(this.editor, 'num2'));
 
     node.addInput(inp1)
       // .addInput(inp2)
       
-      .addControl(new NumControl(this.editor, 'num'))
+      .addControl(new AddControl(this.editor, 'num'))
       .addOutput(out);
   }
 
