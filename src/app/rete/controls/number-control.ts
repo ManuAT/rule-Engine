@@ -52,6 +52,82 @@ const VueAddControl = Vue.component('num', {
   }
 });
 
+const VueOptControl = Vue.component('num', {
+  props: ['readonly', 'emitter', 'ikey', 'getData', 'putData'],
+  template: '<select name="AddOpt":value="value"><option value="=">=</option><option value="<"><</option><option value=">">></option><option value="<="><=</option><option value=">=">>=</option></select>',
+  data() {
+    return {
+      value: 0,
+    };
+  },
+  methods: {
+    change(e) {
+      this.value = +e.target.value;
+      this.update();
+    },
+    update() {
+      if (this.ikey) {
+        this.putData(this.ikey, this.value);
+      }
+      this.emitter.trigger('process');
+    }
+  },
+  mounted() {
+    this.value = this.getData(this.ikey);
+  }
+});
+
+const VueValControl = Vue.component('num', {
+  props: ['readonly', 'emitter', 'ikey', 'getData', 'putData'],
+  // template: '<select name="Add":value="value"><option value="Temperature">Temperature</option><option value="Current">Current</option><option value="Humidity">Humidity</option><option value="Voltage">Voltage</option></select>',
+  template: '<input type="text" :readonly="readonly" :value="value" @input="change($event)"/>',
+  data() {
+    return {
+      value: 0,
+    };
+  },
+  methods: {
+    change(e) {
+      this.value = +e.target.value;
+      this.update();
+    },
+    update() {
+      if (this.ikey) {
+        this.putData(this.ikey, this.value);
+      }
+      this.emitter.trigger('process');
+    }
+  },
+  mounted() {
+    this.value = this.getData(this.ikey);
+  }
+});
+
+// const VueVerifyControl = Vue.component('num', {
+//   props: ['readonly', 'emitter', 'ikey', 'getData', 'putData'],
+//   template: '<button><>',
+//   data() {
+//     return {
+//       value: 0,
+//     };
+//   },
+//   methods: {
+//     change(e) {
+//       this.value = +e.target.value;
+//       this.update();
+//     },
+//     update() {
+//       if (this.ikey) {
+//         this.putData(this.ikey, this.value);
+//       }
+//       this.emitter.trigger('process');
+//     }
+//   },
+//   mounted() {
+//     this.value = this.getData(this.ikey);
+//   }
+// });
+
 
 const VueAlertControl = Vue.component('num', {
   props: ['readonly', 'emitter', 'ikey', 'getData', 'putData'],
@@ -85,7 +161,7 @@ const VueAlertControl = Vue.component('num', {
 
 
 // end  --------------
-
+// devices
 export class NumControl extends Control {
   component: any;
   props: any;
@@ -102,7 +178,7 @@ export class NumControl extends Control {
     this.vueContext.value = val;
   }
 }
-
+// when then start
 export class AddControl extends Control {
   component: any;
   props: any;
@@ -119,6 +195,55 @@ export class AddControl extends Control {
     this.vueContext.value = val;
   }
 }
+export class OptControl extends Control {
+  component: any;
+  props: any;
+  vueContext: any;
+
+  constructor(public emitter, public key, readonly = false) {
+    super(key);
+
+    this.component = VueOptControl;
+    this.props = { emitter, ikey: key, readonly };
+  }
+
+  setValue(val) {
+    this.vueContext.value = val;
+  }
+}
+export class ValControl extends Control {
+  component: any;
+  props: any;
+  vueContext: any;
+
+  constructor(public emitter, public key, readonly = false) {
+    super(key);
+
+    this.component = VueValControl;
+    this.props = { emitter, ikey: key, readonly };
+  }
+
+  setValue(val) {
+    this.vueContext.value = val;
+  }
+}
+// export class VrifyControl extends Control {
+//   component: any;
+//   props: any;
+//   vueContext: any;
+
+//   constructor(public emitter, public key, readonly = false) {
+//     super(key);
+
+//     this.component = VueVerifyControl;
+//     this.props = { emitter, ikey: key, readonly };
+//   }
+
+//   setValue(val) {
+//     this.vueContext.value = val;
+//   }
+// }
+// ----for when then
 export class AlertControl extends Control {
   component: any;
   props: any;

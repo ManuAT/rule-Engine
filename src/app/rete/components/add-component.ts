@@ -1,6 +1,6 @@
 import { Component, Input, Output } from 'rete';
 import { numSocket } from '../sockets';
-import { NumControl,AddControl } from '../controls/number-control';
+import { NumControl,AddControl,OptControl,ValControl} from '../controls/number-control';
 
 export class AddComponent extends Component {
   constructor() {
@@ -19,11 +19,14 @@ export class AddComponent extends Component {
       // .addInput(inp2)
       
       .addControl(new AddControl(this.editor, 'num'))
+      .addControl(new OptControl(this.editor, 'num1'))
+      .addControl(new ValControl(this.editor, 'num2'))
+      // .addControl(new AddControl(this.editor, 'num3'))
       .addOutput(out);
   }
 
   worker(node, inputs, outputs) {
-    const propArray =['Temperature,Humidity','Voltage','Current']
+    // const propArray =['Temperature,Humidity','Voltage','Current']
     const n1 = inputs['num1'].length ? inputs['num1'][0] : node.data.num1;
     // const n2 = inputs['num2'].length ? inputs['num2'][0] : node.data.num2;
     const sum = n1;
