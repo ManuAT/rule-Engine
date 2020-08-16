@@ -3,7 +3,8 @@ import Vue from 'vue/dist/vue.esm';
 
 const VueNumControl = Vue.component('num', {
   props: ['readonly', 'emitter', 'ikey', 'getData', 'putData'],
-  template: '<select name="device" :value="value"><option value="device1">device1</option><option value="device2">device2</option><option value="device3">device3</option><option value="device4">device4</option></select>',
+  // template: '<select name="device" :value="value"><option value="device1">device1</option><option value="device2">device2</option><option value="device3">device3</option><option value="device4">device4</option></select>',
+  template: '<select name="device" :value="value"><option value="device1" selected>device1</option><option value="device2">device2</option><option value="device3">device3</option><option value="device4">device4</option></select>',
 
   data() {
     return {

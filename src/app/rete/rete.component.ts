@@ -43,11 +43,11 @@ export class ReteComponent implements AfterViewInit {
       engine.register(c);
     });
 
-    const n1 = await components[0].createNode({ num: 0 });
+    const n1 = await components[0].createNode({ num: "device1" });
     // const n2 = await components[0].createNode({ num: 0 });
-    const add = await components[1].createNode();
+    const add = await components[1].createNode({num:"Temperature",num2:"<=",num3:"23"});
 
-    const alert = await components[2].createNode();
+    const alert = await components[2].createNode({num:"alert1"});
 
 
     n1.position = [80, 200];
