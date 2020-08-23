@@ -43,23 +43,23 @@ export class ReteComponent implements AfterViewInit {
       engine.register(c);
     });
 
-    const n1 = await components[0].createNode({ num: "device1" });
-    // const n2 = await components[0].createNode({ num: 0 });
-    const add = await components[1].createNode({num:"Temperature",num2:"<=",num3:"23"});
+    // const n1 = await components[0].createNode({ num: "device1" });
+    // // const n2 = await components[0].createNode({ num: 0 });
+    // const add = await components[1].createNode({num:"Temperature",num2:"<=",num3:"23"});
 
-    const alert = await components[2].createNode({num:"alert1"});
+    // const alert = await components[2].createNode({num:"alert1"});
 
 
-    n1.position = [80, 200];
-    alert.position = [900, 400];
-    add.position = [500, 240];
+    // n1.position = [80, 200];
+    // alert.position = [900, 400];
+    // add.position = [500, 240];
 
-    editor.addNode(n1);
-    editor.addNode(alert);
-    editor.addNode(add);
+    // editor.addNode(n1);
+    // editor.addNode(alert);
+    // editor.addNode(add);
 
-    editor.connect(n1.outputs.get('num'), add.inputs.get('num1'));
-    editor.connect(add.outputs.get('num'), alert.inputs.get('num'));
+    // editor.connect(n1.outputs.get('num'), add.inputs.get('num1'));
+    // editor.connect(add.outputs.get('num'), alert.inputs.get('num'));
 
 
     editor.on('process nodecreated noderemoved connectioncreated connectionremoved', (async () => {
